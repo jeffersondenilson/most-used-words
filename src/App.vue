@@ -5,7 +5,7 @@
       color="primary"
       dark
     >
-      <v-toolbar-title>Most Used Words</v-toolbar-title>
+      <v-toolbar-title class="text-h5">Most Used Words</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -20,10 +20,6 @@ import Home from './components/Home.vue';
 export default {
   name: 'App',
 
-  components: { Home },
-
-  data: () => ({
-    //
-  }),
+  components: { Home }
 };
 </script>
