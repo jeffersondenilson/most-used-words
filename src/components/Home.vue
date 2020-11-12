@@ -56,7 +56,12 @@
 
 		mounted(){
 			ipcRenderer.on('process-subtitles', (event, res)=>{
-				this.groupedWords = res;
+				if(res.error){
+					console.log(res.error);
+					alert(res.error);
+				}else{
+					this.groupedWords = res;
+				}
 			});
 		}
 	}

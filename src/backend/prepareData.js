@@ -5,10 +5,9 @@ module.exports = rows => {
 				.filter(filterValidRows)
 				.map(removePunctuation)
 				.map(removeTags)
-				.reduce(mergeRows)// ?
+				.reduce(mergeRows)
 				.split(' ')
-				.map(word => word.toLowerCase())
-				.map(word => word.replace('""', ''))
+				.map(word => word.toLowerCase());
 			resolve(words);
 		}catch(err){
 			reject(err);
@@ -28,7 +27,7 @@ function filterValidRows(row){
 	return notNumber && notEmpty && notInterval;
 }
 
-const removePunctuation = row => row.replace(/[,?!,-]/g, '');
+const removePunctuation = row => row.replace(/[,?!."-]/g, '');
 // remove tags como <font> em legendas .srt
 const removeTags = row => row.replace(/(<[^>]+)>/ig, '').trim();
 
