@@ -27,7 +27,7 @@ function filterValidRows(row){
 	return notNumber && notEmpty && notInterval;
 }
 
-const removePunctuation = row => row.replace(/[,?!."-]/g, '');
+const removePunctuation = row => row.replace(/[,?!.":-]/g, '');
 // remove tags como <font> em legendas .srt
 const removeTags = row => row.replace(/(<[^>]+)>/ig, '').trim();
 

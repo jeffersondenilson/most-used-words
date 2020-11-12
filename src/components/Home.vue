@@ -11,9 +11,25 @@
 					v-model="files"
 					@click:append-outer="processSubtitles" />
 			</v-form>
-			<Pill 
-				v-for="(word, index) in groupedWords" :key="word.name"
-				:name="word.name" :amount="word.amount" :color="pillColor(index)" />
+			<!-- <div v-for="(n, index) in 5" :key="n">{{index}} - {{n}}</div> -->
+			<div v-if="groupedWords.length > 0">
+				<Pill 
+					v-for="(n, index) in limit" :key="n"
+					v-if="groupedWords[startAtItem + index]"
+					:word="groupedWords[startAtItem + index]"
+					:color="pillColor(startAtItem + index)" />
+				<!-- 
+				<Pill 
+					v-for="(word, index) in groupedWords" :key="word.name"
+					:name="word.name" :amount="word.amount" :color="pillColor(index)" />
+				-->
+			</div>
+			<v-pagination
+				v-if="groupedWords.length > 0"
+        v-model="page"
+        :length="numberOfPages"
+        class="my-4"
+      ></v-pagination>
 	</v-container>
 </template>
 
@@ -28,6 +44,8 @@
 		data: () => ({
 			groupedWords: [],
 			files: [],
+			limit: 50,
+			page: 1,
 			colors: [
 				'red accent-4',
 				'orange',
@@ -51,6 +69,19 @@
 			processSubtitles(){
 				const paths = this.files.map(file => file.path);
 				ipcRenderer.send('process-subtitles', paths);
+			}
+		},
+
+		computed: {
+			numberOfPages(){
+				// const numberOfPages = Math.ceil(this.groupedWords.length / this.limit);
+				// if(this.groupedWords.length > 0 && numberOfPages < 1){
+				// 	return 1;
+				// }
+				return Math.ceil(this.groupedWords.length / this.limit);
+			},
+			startAtItem(){
+				return (this.page * this.limit) - this.limit;
 			}
 		},
 
