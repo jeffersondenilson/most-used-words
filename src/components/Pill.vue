@@ -4,7 +4,7 @@
 		:color="color" 
 		text-color="white"
 	>
-		{{ word.name }}
+		{{ name }} - {{ position }}
 		<v-tooltip top>
       <template v-slot:activator="{ on, attrs }">
         <v-chip 
@@ -15,10 +15,10 @@
           v-on="on"
 					v-number-shortener
 				>
-					{{ word.amount }}
+					{{ amount }}
 				</v-chip>
       </template>
-      <span>{{ word.amount }}</span>
+      <span>{{ amount }}</span>
     </v-tooltip>
 	</v-chip>
 </template>
@@ -41,7 +41,7 @@
 	});
 
 	export default {
-		props: ['word', 'color'],
+		props: ['name', 'amount', 'position', 'color'],
 		name: 'Pill',
 	}
 </script>
