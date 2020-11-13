@@ -4,7 +4,7 @@ import prepareData from './prepareData';
 import groupWords from './groupWords';
 
 ipcMain.on('process-subtitles', async (event, paths)=>{
-	const groupedWords = [
+	/*const groupedWords = [
 		{ name: 'unewq', amount: 1000000000, position: 0},
 		{ name: 'hellow', amount: 1200300, position: 1},
 		{ name: 'you', amount: 100200, position: 2},
@@ -15,11 +15,11 @@ ipcMain.on('process-subtitles', async (event, paths)=>{
 		{ name: 'i', amount: 12, position: 7},
 		{ name: 'uboqw', amount: 9, position: 8},
 		{ name: 'e', amount: 8, position: 9},
-	];
+	];*/
 	try{
 		const rows = await pathToRows(paths);
 		const words = await prepareData(rows);
-		// const groupedWords = await groupWords(words);
+		const groupedWords = await groupWords(words);
 		
 		event.reply('process-subtitles', groupedWords);
 	}catch(err){

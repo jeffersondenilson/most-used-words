@@ -1,36 +1,37 @@
 <template>
-	<v-container fluid>
-			<v-form>
-				<v-file-input
-					label="Select text file (.srt, .txt, etc...)"
-					prepend-icon="mdi-message-text"
-					append-outer-icon="mdi-send"
-					outlined
-					multiple
-					chips
-					v-model="files"
-					@click:append-outer="processSubtitles" />
-			</v-form>
+	<v-container fluid class="d-flex flex-column">
+		<v-form>
+			<v-file-input
+				label="Select text file (.srt, .txt, etc...)"
+				prepend-icon="mdi-message-text"
+				append-outer-icon="mdi-send"
+				outlined
+				multiple
+				chips
+				v-model="files"
+				@click:append-outer="processSubtitles" />
+		</v-form>
 
-			<div v-if="isProcessing">Processing Subtitles...</div>
+			<v-progress-circular
+				class="mx-auto"
+		    color="primary"
+		    indeterminate
+		    v-if="isProcessing"
+	  	></v-progress-circular>
 
-			<div v-if="groupedWords.length > 0">
-				<Pill 
-					v-for="word in wordsByPage" :key="word.name"
-					:name="word.name" :amount="word.amount" :position="word.position"
-					:color="pillColor(word.position)" />
-			</div>
-			<!-- 
+	  <div class="d-flex flex-wrap"> 	
 			<Pill 
-				v-for="(word, index) in groupedWords" :key="word.name"
-				:name="word.name" :amount="word.amount" :color="pillColor(index)" />
-			-->
-			<v-pagination
-        class="my-4"
-				v-if="groupedWords.length > 0"
-        v-model="page"
-        :length="numberOfPages"
-      ></v-pagination>
+				v-for="word in wordsByPage" :key="word.name"
+				:name="word.name" :amount="word.amount"
+				:color="pillColor(word.position)" />
+	  </div>
+
+		<v-pagination
+      class="my-4"
+			v-if="groupedWords.length > 0"
+      v-model="page"
+      :length="numberOfPages"
+    ></v-pagination>
 	</v-container>
 </template>
 
@@ -71,21 +72,8 @@
 				let positionPercent = position / this.groupedWords.length;
 				// cor correspendente em this.colors pela porcentagem
 				let colorsPosition = Math.floor(positionPercent * this.colors.length);
-				
-				const test = `pos: ${position},
-				pos%: ${positionPercent},
-				cPos: ${colorsPosition},
-				color: ${this.colors[colorsPosition]}`;
-				// console.log(test);
 
 				return this.colors[colorsPosition];
-			},
-			selectWordsByPage(){
-				// console.log(this.groupedWords)
-				const start = (this.page - 1) * this.limit;
-				const end = start + this.limit;
-				// return `${start} - ${end - 1}`;
-				return this.groupedWords.splice(start, end);
 			}
 		},
 
@@ -94,15 +82,9 @@
 				return Math.ceil(this.groupedWords.length / this.limit);
 			},
 			wordsByPage(){
-				// console.log(this.groupedWords)
 				const start = (this.page - 1) * this.limit;
 				const end = start + this.limit;
-				// return `${start} - ${end - 1}`;
-				const words = this.groupedWords.filter((word, index)=>{
-					return index >= start && index < end;
-				});
-				return words;
-				// return this.selectWordsByPage();
+				return this.groupedWords.slice(start, end);
 			}
 		},
 
@@ -115,6 +97,7 @@
 					alert(res.error);
 				}else{
 					this.groupedWords = res;
+					this.page = 1;
 				}
 			});
 		}

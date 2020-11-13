@@ -4,7 +4,7 @@
 		:color="color" 
 		text-color="white"
 	>
-		{{ name }} - {{ position }}
+		{{ name }}
 		<v-tooltip top>
       <template v-slot:activator="{ on, attrs }">
         <v-chip 
@@ -41,7 +41,7 @@
 	});
 
 	export default {
-		props: ['name', 'amount', 'position', 'color'],
+		props: ['name', 'amount', 'color'],
 		name: 'Pill',
 	}
 </script>
