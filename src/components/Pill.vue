@@ -28,6 +28,8 @@
 
 	Vue.directive('number-shortener', {
 		inserted(el, binding){
+			// abrevia os números
+			// e.g.: 1000000000 = 1.0bi, 1100000 = 1.1mi, 100200 = 100.2k
 			const amount = parseInt(el.innerText);
 
 			if(amount >= 1000000000){
@@ -45,21 +47,3 @@
 		name: 'Pill',
 	}
 </script>
-
-<!-- 
-red
-purple
-blue
-cyan
-green
-yellow
-gray
-
-red
-orange
-yellow
-green
-cyan
-blue
-black
--->

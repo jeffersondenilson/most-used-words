@@ -12,16 +12,16 @@
 				@click:append-outer="processSubtitles" />
 		</v-form>
 
-			<v-progress-circular
-				class="mx-auto"
-		    color="primary"
-		    indeterminate
-		    v-if="isProcessing"
-	  	></v-progress-circular>
+		<v-progress-circular
+			class="mx-auto"
+	    color="primary"
+	    indeterminate
+	    v-if="isProcessing"
+  	></v-progress-circular>
 
 	  <div class="d-flex flex-wrap"> 	
 			<Pill 
-				v-for="word in wordsByPage" :key="word.name"
+				v-for="word in wordsInPage" :key="word.name"
 				:name="word.name" :amount="word.amount"
 				:color="pillColor(word.position)" />
 	  </div>
@@ -81,7 +81,7 @@
 			numberOfPages(){
 				return Math.ceil(this.groupedWords.length / this.limit);
 			},
-			wordsByPage(){
+			wordsInPage(){
 				const start = (this.page - 1) * this.limit;
 				const end = start + this.limit;
 				return this.groupedWords.slice(start, end);
@@ -103,35 +103,3 @@
 		}
 	}
 </script>
-
-<!-- 
-colors: [
-	/*
-	'red accent-4', 
-	'pink accent-3', 
-	'purple', 
-	'blue', 
-	'green', 
-	'yellow darken-1', 
-	'grey darken-1'
-	*/
-	/*
-	'red accent-4',
-	'purple',
-	'blue',
-	'cyan',
-	'green',
-	'yellow darken-1', 
-	'grey darken-1'
-	*/
-	/*
-	'red accent-4',
-	'orange',
-	'yellow accent-4',
-	'green',
-	'cyan',
-	'blue darken-1',
-	'grey darken-1'
-	*/
-],
- -->
