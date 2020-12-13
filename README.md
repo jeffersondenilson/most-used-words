@@ -2,6 +2,8 @@
 
 Aplicação desktop que conta quantas vezes uma palavra aparece em um arquivo de texto. Também funciona com arquivos de legenda .srt, removendo tags, pontuação e intervalos.
 
+![Screenshot](https://i.imgur.com/YXMjafs.png)
+
 ## Project setup
 
 ```
